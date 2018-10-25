@@ -1,0 +1,76 @@
+.card-image.noimage{
+  min-height: 100px;
+}
+
+.card .card-content p{
+  margin-bottom: 1em;
+}
+.card .card-content p:last-child{
+  margin-bottom: 0;
+}
+
+footer a{
+  color: #fff;
+  font-weight: bold;
+}
+footer a:hover{
+  color: #039be5;
+}
+
+hr{
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+#chart1{
+  text-align: center;
+}
+
+.node {
+  font: 300 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: grey;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+}
+/*
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #2ca02c;
+}
+
+.node--target {
+  fill: #d62728;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}*/

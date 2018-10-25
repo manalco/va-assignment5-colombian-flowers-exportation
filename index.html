@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Assignment 4 | Visual Analytics</title>
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- D3 -->
+  <!--script src="https://d3js.org/d3.v4.min.js"></script-->
+  <script type="text/javascript" src="libraries/d3/d3.min.js"></script>
+
+  <!-- Internal -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-image">
+            <img src="assets/img/flower.jpg">
+            <span class="card-title">Title</span>
+          </div>
+          <div class="card-content">
+            <p>Lorem isum</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="card yellow lighten-4">
+          <div class="card-content">
+            <p><span class="badge"><i class="material-icons left">filter_list</i></span> <div id="filter"></div></p>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title"><span class="badge"><i class="material-icons left">insert_chart</i></span> Graphic title</span>
+            <div id="chart1" class="progress"><div class="indeterminate"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  
+  <div class="container">
+    <div class="row">
+      <h2 class="section-title">About the vis</h2>
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-image red darken-3 noimage">
+            <span class="card-title">What</span>
+          </div>
+          <div class="card-content">
+            <p>Dataset Type: ---</p>
+            <p>Items: ---</p>
+            <p>Attributes: 
+              <ol>
+                <li>--- (---)</li>
+                <li>--- (---)</li>
+                <li>--- (---)</li>
+              </ol>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-image yellow darken-3 noimage">
+            <span class="card-title">Why</span>
+          </div>
+          <div class="card-content">
+            <ul class="browser-default">
+              <li>--- <b>(--- - ---)</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-image green darken-1 noimage">
+            <span class="card-title">How</span>
+          </div>
+          <div class="card-content">
+            <p>
+              <ul>
+                <li><ul>
+                  <li>[-] ---</li>
+                </ul></li>
+                <li>Mark: ---</li>
+                <li>Channels:
+                  <ul class="browser-default">
+                    <li>[-] ---</li>
+                  </ul></li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Insights</span>
+            <ul class="browser-default">
+              <li>---</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Used Technologies</span>
+            <ul class="browser-default">
+              <li>D3: <a href="https://d3js.org" target="_blank">https://d3js.org</a></li>
+              <li>Materialize: <a href="https://materializecss.com" target="_blank">https://materializecss.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="page-footer grey darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Visual Analytics</h5>
+          <p class="grey-text text-lighten-2">This visualization was developed for the <a href="http://johnguerra.co/classes/visual_analytics_fall_2018/" target="_blank">Visual Analytics</a> class (2018-20) at <a href="https://uniandes.edu.co/" target="_blank">Universidad de los Andes</a>.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Related Content</h5>
+          <ul>
+            <li><a href="https://github.com/cubosensei/va-tarea5" target="_blank">Source Code</a></li>
+            <li><a href="#!" target="_blank">Slides</a></li>
+            <li><a href="#!" target="_blank">Youtube Video</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright black">
+      <div class="container">
+      2018 MIT Licenced Content by <a href="http://www.manalco.co" target="_blank">Manuel Alvarado</a>
+      </div>
+    </div>
+  </footer>
+  <script type="text/javascript">
+    //D3
+    var rawData, diameter, radius, root, node, link;
+    var width = d3.select("#chart1").node().getBoundingClientRect().width-80;
+
+    d3.json("https://gist.githubusercontent.com"
+      + "/mbostock/1044242"
+      + "/raw/3ebc0fde3887e288b4a9979dad446eb434c54d08"
+      + "/flare.json").then(function(classes) {
+      root = d3.hierarchy(packageHierarchy(classes), (d) => d.children);
+      
+      drawGraphic();
+
+      d3.select("#chart1")
+        .attr("class","");
+    });
+
+    function drawGraphic(){
+      d3.select("#chart1").html("");
+      diameter = window.innerHeight < 800 ? 800 : window.innerHeight;
+      radius = diameter / 2;
+      var innerRadius = radius - 120;
+
+      var cluster = d3.cluster()
+        .size([360, innerRadius]);
+
+      const line = d3.radialLine()
+        .radius(function(d) { return d.y; })
+        .angle(function(d) { return d.x / 180 * Math.PI; })
+        .curve(d3.curveBundle.beta(0.95));
+
+      var svg = d3.select("#chart1").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .append("g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+      link = svg.append("g").selectAll(".link");
+      node = svg.append("g").selectAll(".node");
+
+      var links = packageImports(root.descendants());
+      cluster(root);
+
+      var nodes = root.descendants();
+
+      link = link
+        .data(links)
+        .enter().append('path')
+        .attr('class', 'link')
+        .attr('d', d => line(d.source.path(d.target)));
+
+      node = node
+        .data(nodes.filter(function(n) { return !n.children; }))
+        .enter().append("text")
+        .attr("class", "node")
+        .attr("dy", ".31em")
+        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+        .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+        .text(function(d) { return d.data.key; })
+        .on("mouseover", mouseovered)
+        .on("mouseout", mouseouted);
+    }
+
+    function mouseovered(d) {
+      node.each(function(n) { n.target = n.source = false; });
+
+      link
+        .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+        .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+        .filter(function(l) { return l.target === d || l.source === d; })
+        .each(function() { this.parentNode.appendChild(this); })
+        .style("stroke","purple")
+        .style("stroke-width",3);
+
+      node
+        .classed("node--target", function(n) { return n.target; })
+        .classed("node--source", function(n) { return n.source; });
+    }
+
+    function mouseouted(d) {
+      link
+        .classed("link--target", false)
+        .classed("link--source", false)
+        .style("stroke","grey")
+        .style("stroke-width",1);
+
+      node
+        .classed("node--target", false)
+        .classed("node--source", false);
+    }
+
+    d3.select(self.frameElement).style("height", diameter + "px");
+
+    function packageHierarchy(classes) {
+      var map = {};
+
+      function find(name, data) {
+        var node = map[name], i;
+        if (!node) {
+          node = map[name] = data || {name: name, children: []};
+          if (name.length) {
+            node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+            node.parent.children.push(node);
+            node.key = name.substring(i + 1);
+          }
+        }
+        return node;
+      }
+
+      classes.forEach(function(d) {
+          find(d.name, d);
+      });
+
+      return map[""];
+    }
+
+    function packageImports(nodes) {
+      var map = {},
+          imports = [];
+
+      nodes.forEach(function(d) {
+        map[d.data.name] = d;
+      });
+
+      // For each import, construct a link from the source to target node.
+      nodes.forEach(function(d) {
+        if (d.data.imports) d.data.imports.forEach(function(i) {
+          imports.push({source: map[d.data.name], target: map[i]});
+        });
+      });
+
+      return imports;
+    }
+
+    window.onresize = function(event) {
+      drawGraphic();
+    }
+
+  </script>
+</body>
