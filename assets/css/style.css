@@ -36,7 +36,6 @@ hr{
 }
 
 .link {
-  stroke: grey;
   stroke-opacity: .4;
   fill: none;
   pointer-events: none;
