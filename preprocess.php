@@ -1,5 +1,11 @@
 <?php
   $output = array();
+  $output[] = array('name'=> 'Colombia.Colombia');
+  $output[] = array('name'=> 'Africa.Africa');
+  $output[] = array('name'=> 'Americas.Americas');
+  $output[] = array('name'=> 'Asia.Asia');
+  $output[] = array('name'=> 'Europe.Europe');
+  $output[] = array('name'=> 'Oceania.Oceania');
   $rels = array();
   $countries = array();
   if (($handle = fopen("assets/data/Cadena_Productiva_Flores_-_Exportaciones.csv", "r")) !== FALSE) {

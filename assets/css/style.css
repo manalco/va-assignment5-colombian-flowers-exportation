@@ -36,6 +36,7 @@ hr{
 }
 
 .link {
+  stroke:steelblue;
   stroke-opacity: .4;
   fill: none;
   pointer-events: none;
@@ -45,7 +46,7 @@ hr{
 .link--target {
   stroke-opacity: 1;
 }
-/*
+
 .node:hover,
 .node--source,
 .node--target {
@@ -53,11 +54,11 @@ hr{
 }
 
 .node--source {
-  fill: #2ca02c;
+  fill: orange;
 }
 
 .node--target {
-  fill: #d62728;
+  fill: purple;
 }
 
 .link--source,
@@ -67,9 +68,9 @@ hr{
 }
 
 .link--source {
-  stroke: #d62728;
+  stroke: purple;
 }
 
 .link--target {
-  stroke: #2ca02c;
-}*/
+  stroke: orange;
+}

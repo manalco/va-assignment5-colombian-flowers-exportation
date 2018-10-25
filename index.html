@@ -169,7 +169,6 @@
     //D3
     var rawData, diameter, radius, root, node, link;
     var width = d3.select("#chart1").node().getBoundingClientRect().width-80;
-    var linkColor = "#aaa";
 
     /*d3.json("https://gist.githubusercontent.com"
       + "/mbostock/1044242"
@@ -216,7 +215,6 @@
         .data(links)
         .enter().append('path')
         .attr('class', 'link')
-        .style("stroke",linkColor)
         .attr('d', d => line(d.source.path(d.target)));
 
       node = node
@@ -239,7 +237,6 @@
         .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
         .filter(function(l) { return l.target === d || l.source === d; })
         .each(function() { this.parentNode.appendChild(this); })
-        .style("stroke","purple")
         .style("stroke-width",3);
 
       node
@@ -251,7 +248,6 @@
       link
         .classed("link--target", false)
         .classed("link--source", false)
-        .style("stroke",linkColor)
         .style("stroke-width",1);
 
       node
