@@ -40,6 +40,7 @@
     }
     //print"<pre>";print_r($rels);die();print"</pre>";
     fclose($handle);
+    $output[] = array('name'=> 'Colombia.PFTZ.Colombian PFTZ');
     $temp = array();
     foreach ($output as $key => $value) {
       $temp[] = $value;
