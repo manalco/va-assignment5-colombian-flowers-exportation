@@ -32,7 +32,7 @@
             <p>&nbsp;</p>
             <p>In the visualization below it's presented the colombian flowers exportation information since january 2006 to february 2018. The data was published by colombian <a href="https://www.minagricultura.gov.co" target="_blank">Ministry of Agriculture</a> in the open data web page for colombia <a href="https://www.datos.gov.co" target="_blank">www.datos.gov.co</a>.</p>
           </div>
-          <div class="card-action"><a href="https://www.datos.gov.co/Agricultura-y-Desarrollo-Rural/Cadena-Productiva-Flores-Exportaciones/hieb-cqrb" target="_blank">Data Source</a></div>
+          <div class="card-action"><a href="https://www.datos.gov.co/Agricultura-y-Desarrollo-Rural/Cadena-Productiva-Flores-Exportaciones/hieb-cqrb" target="_blank" class="btn">Data Source</a></div>
         </div>
       </div>
     </div>
@@ -83,7 +83,8 @@
             <div>(<b>A --- <span style="color: orange">B</span></b>) reads: A <b style="color: orange">imports</b> flowers from B</div>
           </div>
           <div class="card-action">
-            <b>Note:</b> PFTZ stands for Permanent Free Trade Zone. <a href="http://www.investincolombia.com.co/investment-incentives/permanent-free-trade-zone.html" target="_blank">Click here for more info</a>
+            <b>Note:</b> PFTZ stands for Permanent Free Trade Zone. <a href="http://www.investincolombia.com.co/investment-incentives/permanent-free-trade-zone.html" target="_blank" class="btn right">Click here for more info</a>
+            <div class="clearfix"></div>
           </div>
         </div>
       </div>
@@ -101,13 +102,12 @@
             <span class="card-title">What</span>
           </div>
           <div class="card-content">
-            <p>Dataset Type: ---</p>
-            <p>Items: ---</p>
+            <p>Dataset Type: Network.</p>
+            <p>Items(Nodes): Place (Colombian departments and Countries)</p>
+            <p>Link: Department → Country</p>
             <p>Attributes: 
               <ol>
-                <li>--- (---)</li>
-                <li>--- (---)</li>
-                <li>--- (---)</li>
+                <li>Value (Ordered, Quantitative, Sequential)</li>
               </ol>
             </p>
           </div>
@@ -120,7 +120,8 @@
           </div>
           <div class="card-content">
             <ul class="browser-default">
-              <li>--- <b>(--- - ---)</b></li>
+              <li>Summarize from which departments are exported colombian flowers to which countries. <b>(Summarize - Paths)(Lookup - Features)</b></li>
+              <li>Identify Colombia's most important clients. <b>(Identify - Outliers)</b></li>
             </ul>
           </div>
         </div>
@@ -133,13 +134,15 @@
           <div class="card-content">
             <p>
               <ul>
-                <li><ul>
-                  <li>[-] ---</li>
-                </ul></li>
-                <li>Mark: ---</li>
+                <li>Encode:
+                  <ul class="browser-default">
+                    <li>[Nodes] Separate, Order.</li>
+                  </ul>
+                </li>
+                <li>Mark: Lines</li>
                 <li>Channels:
                   <ul class="browser-default">
-                    <li>[-] ---</li>
+                    <li>[1] Color (Hue)</li>
                   </ul></li>
               </ul>
             </p>
@@ -154,7 +157,9 @@
           <div class="card-content">
             <span class="card-title">Insights</span>
             <ul class="browser-default">
-              <li>---</li>
+              <li>Bogotá is the most important flower exporter department in Colombia by far.</li>
+              <li>USA is the most important colombian client in the flowers business.</li>
+              <li>There are 4 departments that export flowers to the five continents: Bogotá, Cundinamarca, Antioquia and Valle del Cauca.</li>
             </ul>
           </div>
         </div>
