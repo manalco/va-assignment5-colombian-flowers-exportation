@@ -64,7 +64,7 @@
     $countries = $temp;
     $output = array_merge($output,$countries);
 
-    $fp = fopen('assets/data/flowersExp.json', 'w');
+    $fp = fopen('assets/data/flowersExp-all.json', 'w');
     fwrite($fp, json_encode($output));
     fclose($fp);
   }

@@ -36,7 +36,26 @@
       <div class="col s12">
         <div class="card yellow lighten-4">
           <div class="card-content">
-            <p><span class="badge"><i class="material-icons left">filter_list</i></span> <div id="filter"></div></p>
+            <p><span class="badge"><i class="material-icons left">filter_list</i></span>
+              Hover your mouse over the departments and country names to get more information and use the following select box to filter the results by year.
+              <div class="input-field col s12">
+                <select id="year">
+                  <option value="All" selected>All</option>
+                  <option value="2006">2006</option>
+                  <option value="2009">2009</option>
+                  <option value="2010">2010</option>
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>
+                  <option value="2014">2014</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                </select>
+                <label>Year</label>
+              </div>
+            </p>
             <div class="clearfix"></div>
           </div>
         </div>
@@ -57,6 +76,9 @@
             <div class="clearfix">&nbsp;</div>
             <div>(<b>A --- <span style="color: purple">B</span></b>) reads: A <b style="color: purple">exports</b> flowers to B</div>
             <div>(<b>A --- <span style="color: orange">B</span></b>) reads: A <b style="color: orange">imports</b> flowers from B</div>
+          </div>
+          <div class="card-action">
+            <b>Note:</b> PFTZ stands for Permanent Free Trade Zone. <a href="http://www.investincolombia.com.co/investment-incentives/permanent-free-trade-zone.html" target="_blank">Click here for more info</a>
           </div>
         </div>
       </div>
@@ -142,6 +164,7 @@
             <ul class="browser-default">
               <li>D3: <a href="https://d3js.org" target="_blank">https://d3js.org</a></li>
               <li>Materialize: <a href="https://materializecss.com" target="_blank">https://materializecss.com</a></li>
+              <li>PHP (To preprocess data).</li>
             </ul>
           </div>
         </div>
@@ -174,23 +197,32 @@
     </div>
   </footer>
   <script type="text/javascript">
+    //Materialize
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+
     //D3
-    var rawData, diameter, radius, root, node, link, color;
+    var rawData, diameter, radius, root, node, link, color, max;
     var min = 1;
-    var max = 14717249373;
     var width = d3.select("#chart1").node().getBoundingClientRect().width-80;
+    var year = "all";
     const formatNumber = d3.format(",d");
 
-    d3.json("assets/data/flowersExp.json").then(function(classes){
-      root = d3.hierarchy(packageHierarchy(classes), (d) => d.children);
-      rawData = classes;
-      d3.select("#min").text(formatNumber(min));
-      d3.select("#max").text(formatNumber(max));
-      drawGraphic();
+    loadData();
 
-      d3.select("#chart1")
-        .attr("class","");
-    });
+    function loadData(){
+      max = getMax();
+      d3.json("assets/data/flowersExp-"+year+".json").then(function(classes){
+        root = d3.hierarchy(packageHierarchy(classes), (d) => d.children);
+        rawData = classes;
+        d3.select("#min").text(formatNumber(min));
+        d3.select("#max").text(formatNumber(max));
+        drawGraphic();
+
+        d3.select("#chart1")
+          .attr("class","");
+      });
+    }
 
     function drawGraphic(){
       /*const scale = d3.scaleLinear()
@@ -312,9 +344,32 @@
       return exports;
     }
 
+    function getMax(){console.log(year);
+      switch(year){
+        case "2006": return 1509111660; break;
+        case "2009": return 1399395291; break;
+        case "2010": return 1288003444; break;
+        case "2011": return 1159748675; break;
+        case "2012": return 1156713324; break;
+        case "2013": return 1237119765; break;
+        case "2014": return 1391502539; break;
+        case "2015": return 1789829050; break;
+        case "2016": return 1748201794; break;
+        case "2017": return 1753884675; break;
+        case "2018": return 283739155; break;
+        default: return 14717249373; break;
+      }
+    }
+
     window.onresize = function(event) {
       drawGraphic();
     }
+
+    d3.select("#year")
+      .on("change", function(){
+        year = d3.select(this).property("value");
+        loadData();
+      });
 
   </script>
 </body>
