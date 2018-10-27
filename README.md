@@ -44,7 +44,7 @@ Attributes:
 * * [Nodes] Separate, Order.
 * Mark: Lines
 * Channels:
-* [1] Color (Hue)
+* * [1] Color (Hue)
 
 
 ## Insights
