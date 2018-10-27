@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Assignment 4 | Visual Analytics</title>
+  <title>Assignment 5 | Visual Analytics</title>
 
   <!-- Materialize CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -23,10 +23,10 @@
         <div class="card">
           <div class="card-image">
             <img src="assets/img/flower.jpg">
-            <span class="card-title">Title</span>
+            <span class="card-title">Where do colombian flowers go?</span>
           </div>
           <div class="card-content">
-            <p>Lorem isum</p>
+            <p>Lorem ipsum</p>
           </div>
         </div>
       </div>
@@ -49,6 +49,14 @@
           <div class="card-content">
             <span class="card-title"><span class="badge"><i class="material-icons left">insert_chart</i></span> Graphic title</span>
             <div id="chart1" class="progress"><div class="indeterminate"></div></div>
+            <div>
+              <b>Value of Flowers Exported (x1000 COP)</b>
+              <img src="https://raw.githubusercontent.com/d3/d3-scale-chromatic/master/img/viridis.png" width="100%" height="20">
+              <span class="left" id="min"></span> <span class="right" id="max"></span>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <div>(<b>A --- <span style="color: purple">B</span></b>) reads: A <b style="color: purple">exports</b> flowers to B</div>
+            <div>(<b>A --- <span style="color: orange">B</span></b>) reads: A <b style="color: orange">imports</b> flowers from B</div>
           </div>
         </div>
       </div>
@@ -167,16 +175,17 @@
   </footer>
   <script type="text/javascript">
     //D3
-    var rawData, diameter, radius, root, node, link;
+    var rawData, diameter, radius, root, node, link, color;
+    var min = 1;
+    var max = 14717249373;
     var width = d3.select("#chart1").node().getBoundingClientRect().width-80;
+    const formatNumber = d3.format(",d");
 
-    /*d3.json("https://gist.githubusercontent.com"
-      + "/mbostock/1044242"
-      + "/raw/3ebc0fde3887e288b4a9979dad446eb434c54d08"
-      + "/flare.json").then(function(classes) {*/
     d3.json("assets/data/flowersExp.json").then(function(classes){
       root = d3.hierarchy(packageHierarchy(classes), (d) => d.children);
-      
+      rawData = classes;
+      d3.select("#min").text(formatNumber(min));
+      d3.select("#max").text(formatNumber(max));
       drawGraphic();
 
       d3.select("#chart1")
@@ -184,6 +193,11 @@
     });
 
     function drawGraphic(){
+      /*const scale = d3.scaleLinear()
+        .domain([1,d3.max(rawData, d=> (d.qty === undefined)? 0 : parseInt(d.qty))])
+        .range([1,50]);*/
+      color = d3.scaleSequential(d3.interpolateViridis).domain([min, max]);
+
       d3.select("#chart1").html("");
       diameter = window.innerHeight < 800 ? 800 : window.innerHeight;
       radius = diameter / 2;
@@ -220,7 +234,7 @@
       node = node
         .data(nodes.filter(function(n) { return !n.children; }))
         .enter().append("text")
-        .attr("class", "node")
+        .attr("class", d=> d.data.key === d.data.parent.key? "node parent" : "node")
         .attr("dy", ".31em")
         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
         .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
@@ -237,7 +251,7 @@
         .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
         .filter(function(l) { return l.target === d || l.source === d; })
         .each(function() { this.parentNode.appendChild(this); })
-        .style("stroke-width",3);
+        .style("stroke", d=> color(d.source.data.qty[d.target.data.name]));
 
       node
         .classed("node--target", function(n) { return n.target; })
@@ -248,7 +262,7 @@
       link
         .classed("link--target", false)
         .classed("link--source", false)
-        .style("stroke-width",1);
+        .style("stroke", "grey");
 
       node
         .classed("node--target", false)

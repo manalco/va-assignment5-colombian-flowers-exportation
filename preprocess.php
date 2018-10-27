@@ -8,6 +8,8 @@
   $output[] = array('name'=> 'Oceania.Oceania');
   $rels = array();
   $countries = array();
+  $max = 0;
+  $min = 14717249373;
   if (($handle = fopen("assets/data/Cadena_Productiva_Flores_-_Exportaciones.csv", "r")) !== FALSE) {
     $header = array();
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -27,17 +29,24 @@
         }else{
           $rels[$d['DepartamentoOrigen']] = array($d['PaisDestino']);
         }
-        $output[$d['DepartamentoOrigen'].'-'.$d['PaisDestino']] = array(
-          'name' => 'Colombia.'.$d['DepartamentoOrigen'],
-          'exports' => $rels[$d['DepartamentoOrigen']],
-          'qty' => isset($output[$d['DepartamentoOrigen'].'-'.$d['PaisDestino']]['qty']) ? $output[$d['DepartamentoOrigen'].'-'.$d['PaisDestino']]['qty'] + $d['CantidadUnidades'] : $d['CantidadUnidades']
-        );
+        $output[$d['DepartamentoOrigen']]['name'] = 'Colombia.'.$d['DepartamentoOrigen'];
+        $output[$d['DepartamentoOrigen']]['exports'] = $rels[$d['DepartamentoOrigen']];
+        $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']] = isset($output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']]) ? ($output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']] + $d['ValorMilesPesos']) : ($d['ValorMilesPesos']);
+        
         $countries[$d['PaisDestino']] = array(
           'name' => $d['PaisDestino'],
           'exports' => array()
         );
+
+        if($max < $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']]){
+          $max = $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']];
+        }
+        if($min > $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']] && $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']] > 0){
+          $min = $output[$d['DepartamentoOrigen']]['qty'][$d['PaisDestino']];
+        }
       }
     }
+    
     //print"<pre>";print_r($rels);die();print"</pre>";
     fclose($handle);
     $output[] = array('name'=> 'Colombia.PFTZ.Colombian PFTZ');
@@ -45,6 +54,8 @@
     foreach ($output as $key => $value) {
       $temp[] = $value;
     }
+    print "MAX: ".$max."<br/>";
+    print "MIN: ".$min;
     $output = $temp;
     $temp = array();
     foreach ($countries as $key => $value) {
@@ -56,14 +67,6 @@
     $fp = fopen('assets/data/flowersExp.json', 'w');
     fwrite($fp, json_encode($output));
     fclose($fp);
-  }
-
-  function sanitize($temp){
-    $temp = str_replace('-.', '-0.', $temp);
-    if($temp[0] == '.'){
-      $temp = str_replace('.', '0.', $temp);
-    }
-    return $temp;
   }
 ?>
 <pre><?php print_r($output); ?></pre>
