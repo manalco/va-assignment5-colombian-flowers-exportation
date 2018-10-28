@@ -55,7 +55,7 @@ Attributes:
 # Related Content
 * [Visualization](https://cubosensei.github.io/va-assignment5-colombian-flowers-exportation/)
 * [Slides](https://docs.google.com/presentation/d/18yTG5e0n797cyJNNVSEh2cNGrSqQ64SW9IPGM6fNteg/edit?usp=sharing)
-* [YouTube Video](#!)
+* [YouTube Video](https://youtu.be/XTN4FM-3KnY)
 
 
 # Credits
