@@ -8,7 +8,7 @@ With more than 1,500 varieties of flowers identified and more than 7,000 hectare
 -Procolombia
 
 
-In the visualization below it's presented the colombian flowers exportation information since january 2006 to february 2018. The data was published by colombian Ministry of Agriculture in the open data web page for colombia www.datos.gov.co.
+In the visualization below it's presented the colombian flowers exportation information since january 2006 to february 2018. The data was published by colombian [Ministry of Agriculture](https://www.minagricultura.gov.co/) in the open data web page for colombia www.datos.gov.co.
 
 ## Objective
 To generate an interactive visualization to present and summarize relations of flowers exportation between colombian departments and countries.
